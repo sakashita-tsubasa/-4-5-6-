@@ -1,0 +1,11 @@
+2023/04/05 07:22:41 users.go:45: table users has no column named birthday
+2023/04/05 07:24:31 users.go:45: table users has no column named birthday
+2023/04/05 07:26:44 users.go:134: near "where": syntax error
+2023/04/05 07:28:27 users.go:134: near "where": syntax error
+2023/04/05 07:31:03 users.go:134: not enough args to execute query: want 6 got 3
+2023/04/05 07:32:02 users.go:134: near "where": syntax error
+2023/04/05 07:33:37 users.go:134: not enough args to execute query: want 6 got 3
+2023/04/05 07:37:53 users.go:134: not enough args to execute query: want 6 got 3
+2023/04/06 01:23:13 users.go:135: sql: no rows in result set
+2023/04/06 01:25:42 users.go:135: sql: no rows in result set
+2023/04/06 01:41:57 users.go:132: sql: no rows in result setaaaaaaa
