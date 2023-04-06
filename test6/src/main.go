@@ -1,63 +1,32 @@
 package main
 
 import (
-	"fmt"
-	// "log"
-	// "test6/config"
 	"test6/app/models"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
-func main () {
+func main() {
+	router := gin.Default()
 
-	// fmt.Println(config.Config.Port)
-	// fmt.Println(config.Config.SQLDriver)
-	// fmt.Println(config.Config.DbName)
-	// fmt.Println(config.Config.LogFile)
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:8080"}
+	config.AllowHeaders = []string{"Content-Type", "Content-Length", "Accept-Encoding", "X-CSRF-Token", "Authorization", "accept", "origin", "Cache-Control", "X-Requested-With"}
+	config.ExposeHeaders = []string{"Content-Length"}
+	config.AllowCredentials = true
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 
-	// log.Println("test")
-	fmt.Println(models.Db)
+	router.Use(cors.New(config))
 
-	// u := &models.User{}
-	// u.Name = "test"
-	// u.Email = "test@example.com"
-	// u.PassWord = "testtest"
-	// fmt.Println(u)
+	v1 := router.Group("/api/v1")
+	{
+		v1.POST("/create", models.Create)
+		v1.GET("/get/:id", models.Get)
+		// v1.PUT("/update/:id", models.Update)
+		v1.PUT("/update", models.Update)
+		v1.DELETE("/delete/:id", models.Delete)
+	}
 
-// ↓追加
-	u := &models.User{}
-	u.Name = "坂下"
-	u.Birth_day = "19970523"
-	u.Age = 25
-	u.Height = 168.5
-	u.Weight = 61.3
-	fmt.Println(u)
-
-
-	u.CreateUser()
-
-	// u, _ := models.GetUser(2)
-
-	// fmt.Println(u)
-	// u, _ = models.GetUser(1)
-	// fmt.Println(u)
+	router.Run(":8080")
 }
-
-
-
-
-
-// 【テスト６】CRUD実装
-// DBへの「登録、更新、表示、削除」を実装すること。
-// いずれもJSONで値を返却すること（POSTMANでチェックします）
-// 画面および仕様書は（あるに越したことはないが）必須ではない
-// 想定している環境は Django on docker だが、動作すれば環境は問わない。 ←docker
-// 言語＆FWも自分の好きなもので良い ←go
-// DBの項目は以下の通り
-// | name      | type   | key     | length | nullable | auto increment | description 
-// | :-------- | :----- | :------ | -----: | :------: | :------------- | :-----------
-// | id        | uint   | primary |        | x        | ○              | ID
-// | name      | string |         | 255    | x        |                | 名前
-// | birth_day | date   |         |        | x        |                | 誕生日
-// | age       | int    |         |        | x        |                | 年齢
-// | height    | float  |         |        | x        |                | 身長
-// | weight    | float  |         |        | x        |                | 体重
